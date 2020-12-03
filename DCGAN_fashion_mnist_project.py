@@ -42,3 +42,14 @@ print("building discriminator...")
 discriminator = DCGAN.build_discriminator(28, 28, 1)
 optimizer = Adam(lr = LR_INIT , beta=0.5, decay= LR_INIT / NUM_EPOCHS)
 discriminator.compile(loss="binary_crossentropy", optimizer=optimizer)
+
+# building the GAN
+print("building gan...")
+discriminator.trainable=False 
+gan_input = Input(shape=(100,))
+gan_output = discriminator(generator(gan_input))
+gan = Model(gan_input, gan_output)
+
+# compile gan
+gan_optimizer = Adam(lr = LR_INIT, beta=0.5, decay = LR_INIT / NUM_EPOCHS)
+gan.compile(loss="binary_crossentropy", optimizer=gan_optimizer)
