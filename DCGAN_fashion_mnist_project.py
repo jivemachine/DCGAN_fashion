@@ -12,3 +12,10 @@ import argparse
 import cv2
 import os
 
+# arguments for parsing the command line
+ap = argparse.ArgumentParser()
+ap.add_argument("-o", "--output", required=True, help="path to output directory")
+ap.add_argument("-e", "--epochs", type=int, default=50, help="# of epochs to train")
+ap.add_argument("-b", "--batch size", type=int, default=128, help="batch size for training")
+
+args = vars(ap.parse_args())
