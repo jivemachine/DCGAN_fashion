@@ -19,3 +19,9 @@ ap.add_argument("-e", "--epochs", type=int, default=50, help="# of epochs to tra
 ap.add_argument("-b", "--batch size", type=int, default=128, help="batch size for training")
 
 args = vars(ap.parse_args())
+
+# load fashion mnist dataset and stack training and testing datapoints so we have additonal training
+print("loading mnist dataset...")
+((X_train, _), (X_test, _)) = fashion_mnist.load_data()
+train_images = np.concatenate([X_train, X_test])
+
