@@ -25,3 +25,6 @@ print("loading mnist dataset...")
 ((X_train, _), (X_test, _)) = fashion_mnist.load_data()
 train_images = np.concatenate([X_train, X_test])
 
+# add extra dimension for channel and scale the images
+train_images = np.expand_dims(train_images, axis=-1)
+train_images = (train_images.astype("float") - 127.5) / 127.5
