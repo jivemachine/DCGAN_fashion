@@ -81,4 +81,28 @@ for epoch in range(0, NUM_EPOCHS):
         y = ([1] * BATCH_SIZE) + ([0] * BATCH_SIZE)
         y = np.reshape(y, (-1,))
         (X, y) = shuffle(X, y)
+
+        # train discriminator on the data
+        discriminator_loss = discriminator.train_on_batch(X, y)
+
+        # training our generator via the adversarial model 
+        sudo_labels = [1] * BATCH_SIZE
+        sudo_labels = np.reshape(sudo_labels, (-1,))
+        gan_loss = gan.train_on_batch(noise, sudo_labels)
+
+        # checking output to see if end of epoch, if so intialize output path
+        if i == batches_x_epoch - 1:
+            p = [args["output"], "epoch_{}_output.png".format(str(epoch + 1).zfill(4))]
+
+        # otherwise check to visualize the current batch of the epoch
+        else:
+            if epoch < 10 and i % 25 == 0:
+                p = [args ["output"], "epoch_{}_step_{}.png".format(str(epoch + 1).zfill(4), str(i).zfill(5))]
+
+            elif epoch >= 10 and i % 100 == 0:
+                p = [args ["output"], "epoch_{}_step_{}.png".format(str(epoch + 1).zfill(4), str(i).zfill(5))]
+
+    
         
+        
+
