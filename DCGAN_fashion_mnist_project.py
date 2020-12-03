@@ -53,3 +53,32 @@ gan = Model(gan_input, gan_output)
 # compile gan
 gan_optimizer = Adam(lr = LR_INIT, beta=0.5, decay = LR_INIT / NUM_EPOCHS)
 gan.compile(loss="binary_crossentropy", optimizer=gan_optimizer)
+
+# generating noise so we can see how our generator is performing
+print("training...")
+justnoise = np.random.uniform(-1, 1, size=(256, 100))
+
+# loop it over the epochs
+for epoch in range(0, NUM_EPOCHS):
+    # computing number of batches per epoch
+    print("starting epoch {} of {}...".format(epoch + 1, NUM_EPOCHS))
+    batches_x_epoch = int(train_images.shape[0] / BATCH_SIZE)
+
+    # loop over batches
+    for i in range(0, batches_x_epoch):
+        # initialize empty output path
+        p = None
+
+        # select next batch of images, and randomly generate noise for generator to predixt on
+        image_batch = train_images[i * BATCH_SIZE:(i+1) * BATCH_SIZE]
+        noise = np.random.uniform(-1, 1, size=(BATCH_SIZE, 100))
+        
+        # generate images using noise + generator model
+        generator_images = generator.predict(noise, verbose=0)
+
+        # concatenate the actual images and the generated images then shuffle data
+        X = np.concatenate((image_batch, generator_images))
+        y = ([1] * BATCH_SIZE) + ([0] * BATCH_SIZE)
+        y = np.reshape(y, (-1,))
+        (X, y) = shuffle(X, y)
+        
