@@ -1,5 +1,5 @@
 # imports
-import dcgan
+from dcgan import DCGAN
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.optimizers import Adam
