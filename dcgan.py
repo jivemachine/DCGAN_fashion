@@ -36,28 +36,28 @@ class DCGAN:
         return model
 
 
-class DCGAN:
-   @staticmethod
-   def build_discriminator(width, height, depth, alpha=0.2):
-       # initalizing the model
-       model = Sequential()
-       inputshape = (height, width, depth)
+    @staticmethod
+    def build_discriminator(width, height, depth, alpha=0.2):
 
-       # first layer
-       model.add(Conv2D(32, (5, 5), padding="same", strides=(2,2), input_shape=inputshape))
-       model.add(LeakyReLU(alpha=alpha))
+        # initalizing the model
+        model = Sequential()
+        inputshape = (height, width, depth)
 
-       #second layer
-       model.add(Conv2D(64, (5, 5), padding="same", strides=(2,2)))     
-       model.add(LeakyReLU(alpha=alpha))
+        # first layer
+        model.add(Conv2D(32, (5, 5), padding="same", strides=(2,2), input_shape=inputshape))
+        model.add(LeakyReLU(alpha=alpha))
 
-       # third layer
-       model.add(Flatten())
-       model.add(Dense(512))
-       model.add(LeakyReLU(alpha=alpha))
+        #second layer
+        model.add(Conv2D(64, (5, 5), padding="same", strides=(2,2)))     
+        model.add(LeakyReLU(alpha=alpha))
 
-       # output layer
-       model.add(Dense(1))
-       model.add(Activation("sigmoid"))
+        # third layer
+        model.add(Flatten())
+        model.add(Dense(512))
+        model.add(LeakyReLU(alpha=alpha))
 
-       return model
+        # output layer
+        model.add(Dense(1))
+        model.add(Activation("sigmoid"))
+
+        return model
