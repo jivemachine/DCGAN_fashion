@@ -1,8 +1,8 @@
 # imports
 import tensorflow as tf
 from tf import keras
-from tensorflow.keras.models import Sequential()
-from tensorflow.keras.layers import BatchNormalization()
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Conv2DTranspose
 from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import LeakyReLU
