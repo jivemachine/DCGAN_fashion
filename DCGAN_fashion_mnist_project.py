@@ -21,7 +21,7 @@ ap.add_argument("-b", "--batch-size", type=int, default=128, help="batch size fo
 args = vars(ap.parse_args())
 
 NUM_EPOCHS = args['epochs']
-BATCH_SIZE = args['batch-size']
+BATCH_SIZE = args['batch_size']
 LR_INIT = 2e-4
 
 # load fashion mnist dataset and stack training and testing datapoints so we have additonal training
