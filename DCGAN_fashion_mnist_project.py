@@ -102,7 +102,21 @@ for epoch in range(0, NUM_EPOCHS):
             elif epoch >= 10 and i % 100 == 0:
                 p = [args ["output"], "epoch_{}_step_{}.png".format(str(epoch + 1).zfill(4), str(i).zfill(5))]
 
+        # check to see if we should visualize the output of the generated model on our bcnhmark data
+        if p is not None:
+            print("step {} of {}: discriminator_loss={:.6f}, adversarial_loss={:.6f}".format(epoch + 1, i,
+            discriminator, gan_loss))
+
+            # making predictions on becnhmark data, scale it back to range [0,255], and generate the montage
+            images = generator.predict(justnoise)
+            images = ((images * 127.5) + 127.5).astype("unit8")
+            images = np.repeat(images, 3, axis=-1)
+            vis = build_montages(images, (28,28), (16,16))[0]
+
+            # write visualizations to disc
+            p = os.path.sep.join(p)
+            cv2.imwrite(p, vis)
     
-        
+
         
 
