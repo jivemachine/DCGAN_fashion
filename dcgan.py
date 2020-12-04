@@ -1,6 +1,4 @@
 # imports
-import tensorflow as tf
-from tf import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Conv2DTranspose
@@ -38,6 +36,7 @@ class DCGAN:
         return model
 
 
+class DCGAN:
    @staticmethod
    def build_discriminator(width, height, depth, alpha=0.2):
        # initalizing the model
