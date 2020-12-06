@@ -7,6 +7,7 @@ from tensorflow.keras.layers import LeakyReLU
 from tensorflow.keras.layers import Activation
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Reshape
+from tensorflow.keras.layers import Dense
 
 # we're going to implement a DCGAN class 
 class DCGAN:
@@ -17,7 +18,7 @@ class DCGAN:
         inputshape = (dim, dim, depth)
         chan_dim = -1
         # first layer
-        model.add(Dense(input_dim=input_dim, units=outputDim))
+        model.add(Dense(input_dim=inputDim, units=outputDim))
         model.add(Activation("relu"))
         model.add(BatchNormalization())
         # second layer
@@ -26,11 +27,11 @@ class DCGAN:
         model.add(BatchNormalization())
         # rehsaping layers and upsampling
         model.add(Reshape(inputshape))
-        model.add(Conv2dTranspose(32, (5, 5), strides=(2, 2), padding="same"))
+        model.add(Conv2DTranspose(32, (5, 5), strides=(2, 2), padding="same"))
         model.add(Activation("relu"))
         model.add(BatchNormalization(axis=chan_dim))
         # rehsaping and upsampling but with tanh activation 
-        model.add(Conv2dTranspose(channels, (5,5), strides=(2,2), padding="same"))
+        model.add(Conv2DTranspose(channels, (5,5), strides=(2,2), padding="same"))
         model.add(Activation("tanh"))
 
         return model
