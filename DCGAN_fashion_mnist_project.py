@@ -40,7 +40,7 @@ generator = DCGAN.build_generator(7, 64, channels=1)
 # build the discriminator
 print("building discriminator...")
 discriminator = DCGAN.build_discriminator(28, 28, 1)
-optimizer = Adam(lr = LR_INIT , beta=0.5, decay= LR_INIT / NUM_EPOCHS)
+optimizer = Adam(lr = LR_INIT , decay= LR_INIT / NUM_EPOCHS)
 discriminator.compile(loss="binary_crossentropy", optimizer=optimizer)
 
 # building the GAN
@@ -51,7 +51,7 @@ gan_output = discriminator(generator(gan_input))
 gan = Model(gan_input, gan_output)
 
 # compile gan
-gan_optimizer = Adam(lr = LR_INIT, beta=0.5, decay = LR_INIT / NUM_EPOCHS)
+gan_optimizer = Adam(lr = LR_INIT, decay = LR_INIT / NUM_EPOCHS)
 gan.compile(loss="binary_crossentropy", optimizer=gan_optimizer)
 
 # generating noise so we can see how our generator is performing
@@ -104,12 +104,12 @@ for epoch in range(0, NUM_EPOCHS):
 
         # check to see if we should visualize the output of the generated model on our bcnhmark data
         if p is not None:
-            print("step {} of {}: discriminator_loss={:.6f}, adversarial_loss={:.6f}".format(epoch + 1, i,
-            discriminator, gan_loss))
+            print("step {} of {}: discriminator_loss={:.6f}, adversarial_loss={:.6f}".format(epoch + 1, i, 
+            discriminator_loss, gan_loss))
 
             # making predictions on becnhmark data, scale it back to range [0,255], and generate the montage
             images = generator.predict(justnoise)
-            images = ((images * 127.5) + 127.5).astype("unit8")
+            images = ((images * 127.5) + 127.5).astype("uint8")
             images = np.repeat(images, 3, axis=-1)
             vis = build_montages(images, (28,28), (16,16))[0]
 
